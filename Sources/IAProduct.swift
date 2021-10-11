@@ -1,5 +1,5 @@
 //
-//  Product.swift
+//  IAProduct.swift
 //  InAppPurchase
 //
 //  Created by Jin Sasaki on 2017/09/05.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol Product {
+public protocol IAProduct {
     var productIdentifier: String { get }
     var price: Decimal { get }
     var localizedTitle: String { get }

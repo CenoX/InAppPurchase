@@ -13,10 +13,10 @@ import StoreKit
 
 public protocol InAppPurchaseProvidable {
     func canMakePayments() -> Bool
-    func set(shouldAddStorePaymentHandler: ((_ product: Product) -> Bool)?, handler: InAppPurchase.PurchaseHandler?)
+    func set(shouldAddStorePaymentHandler: ((_ product: IAProduct) -> Bool)?, handler: InAppPurchase.PurchaseHandler?)
     func addTransactionObserver(fallbackHandler: InAppPurchase.PurchaseHandler?)
     func removeTransactionObserver()
-    func fetchProduct(productIdentifiers: Set<String>, handler: ((_ result: Result<[Product], InAppPurchase.Error>) -> Void)?)
+    func fetchProduct(productIdentifiers: Set<String>, handler: ((_ result: Result<[IAProduct], InAppPurchase.Error>) -> Void)?)
     func restore(handler: ((_ result: Result<Set<String>, InAppPurchase.Error>) -> Void)?)
     func purchase(productIdentifier: String, handler: InAppPurchase.PurchaseHandler?)
     func refreshReceipt(handler: InAppPurchase.ReceiptRefreshHandler?)
@@ -66,7 +66,7 @@ extension InAppPurchase: InAppPurchaseProvidable {
         return paymentProvider.canMakePayments()
     }
 
-    public func set(shouldAddStorePaymentHandler: ((_ product: Product) -> Bool)? = nil, handler: InAppPurchase.PurchaseHandler?) {
+    public func set(shouldAddStorePaymentHandler: ((_ product: IAProduct) -> Bool)? = nil, handler: InAppPurchase.PurchaseHandler?) {
         paymentProvider.set(shouldAddStorePaymentHandler: { [weak self] (_, payment, product) -> Bool in
             let shouldAddStorePayment = shouldAddStorePaymentHandler?(Internal.Product(product)) ?? false
             if shouldAddStorePayment {
@@ -95,7 +95,7 @@ extension InAppPurchase: InAppPurchaseProvidable {
         paymentProvider.removeTransactionObserver()
     }
 
-    public func fetchProduct(productIdentifiers: Set<String>, handler: ((_ result: Result<[Product], InAppPurchase.Error>) -> Void)? = nil) {
+    public func fetchProduct(productIdentifiers: Set<String>, handler: ((_ result: Result<[IAProduct], InAppPurchase.Error>) -> Void)? = nil) {
         productProvider.fetch(productIdentifiers: productIdentifiers, requestId: UUID().uuidString) { (result) in
             switch result {
             case .success(let products):

@@ -18,7 +18,7 @@ extension Internal {
         }
     }
 }
-extension Internal.Product: Product {
+extension Internal.Product: IAProduct {
     var productIdentifier: String {
         return skProduct.productIdentifier
     }

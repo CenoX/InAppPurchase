@@ -10,10 +10,10 @@ import InAppPurchase
 
 public final class StubInAppPurchase: InAppPurchaseProvidable {
     private let _canMakePayments: Bool
-    private let _setShouldAddStorePayementHandler: ((_ shouldAddStorePaymentHandler: ((Product) -> Bool)?, _ handler: InAppPurchase.PurchaseHandler?) -> Void)?
+    private let _setShouldAddStorePayementHandler: ((_ shouldAddStorePaymentHandler: ((IAProduct) -> Bool)?, _ handler: InAppPurchase.PurchaseHandler?) -> Void)?
     private let _addTransactionObserverHandler: ((_ fallbackHandler: InAppPurchase.PurchaseHandler?) -> Void)?
     private let _removeTransactionObserverHandler: (() -> Void)?
-    private let _fetchProductHandler: ((_ productIdentifiers: Set<String>, _ handler: ((_ result: Result<[Product], InAppPurchase.Error>) -> Void)?) -> Void)?
+    private let _fetchProductHandler: ((_ productIdentifiers: Set<String>, _ handler: ((_ result: Result<[IAProduct], InAppPurchase.Error>) -> Void)?) -> Void)?
     private let _restoreHandler: ((_ handler: ((_ result: Result<Set<String>, InAppPurchase.Error>) -> Void)?) -> Void)?
     private let _purchaseHandler: ((_ productIdentifier: String, _ handler: InAppPurchase.PurchaseHandler?) -> Void)?
     private let _receiptRefreshHandler: ((_ handler: InAppPurchase.ReceiptRefreshHandler?) -> Void)?
@@ -21,10 +21,10 @@ public final class StubInAppPurchase: InAppPurchaseProvidable {
     private let _transactions: [PaymentTransaction]
 
     public init(canMakePayments: Bool = true,
-                setShouldAddStorePayementHandler: ((_ shouldAddStorePaymentHandler: ((Product) -> Bool)?, _ handler: InAppPurchase.PurchaseHandler?) -> Void)? = nil,
+                setShouldAddStorePayementHandler: ((_ shouldAddStorePaymentHandler: ((IAProduct) -> Bool)?, _ handler: InAppPurchase.PurchaseHandler?) -> Void)? = nil,
                 addTransactionObserverHandler: ((_ fallbackHandler: InAppPurchase.PurchaseHandler?) -> Void)? = nil,
                 removeTransactionObserverHandler: (() -> Void)? = nil,
-                fetchProductHandler: ((_ productIdentifiers: Set<String>, _ handler: ((_ result: Result<[Product], InAppPurchase.Error>) -> Void)?) -> Void)? = nil,
+                fetchProductHandler: ((_ productIdentifiers: Set<String>, _ handler: ((_ result: Result<[IAProduct], InAppPurchase.Error>) -> Void)?) -> Void)? = nil,
                 restoreHandler: ((_ handler: ((_ result: Result<Set<String>, InAppPurchase.Error>) -> Void)?) -> Void)? = nil,
                 purchaseHandler: ((_ productIdentifier: String, _ handler: InAppPurchase.PurchaseHandler?) -> Void)? = nil,
                 refreshReceiptHandler: ((_ handler: InAppPurchase.ReceiptRefreshHandler?) -> Void)? = nil,
@@ -47,7 +47,7 @@ public final class StubInAppPurchase: InAppPurchaseProvidable {
         return _canMakePayments
     }
 
-    public func set(shouldAddStorePaymentHandler: ((Product) -> Bool)?, handler: InAppPurchase.PurchaseHandler?) {
+    public func set(shouldAddStorePaymentHandler: ((IAProduct) -> Bool)?, handler: InAppPurchase.PurchaseHandler?) {
         _setShouldAddStorePayementHandler?(shouldAddStorePaymentHandler, handler)
     }
 
@@ -59,7 +59,7 @@ public final class StubInAppPurchase: InAppPurchaseProvidable {
         _removeTransactionObserverHandler?()
     }
 
-    public func fetchProduct(productIdentifiers: Set<String>, handler: ((_ result: Result<[Product], InAppPurchase.Error>) -> Void)?) {
+    public func fetchProduct(productIdentifiers: Set<String>, handler: ((_ result: Result<[IAProduct], InAppPurchase.Error>) -> Void)?) {
         _fetchProductHandler?(productIdentifiers, handler)
     }
 
